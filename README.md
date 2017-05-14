@@ -171,8 +171,8 @@ class AuthController extends BaseController
 ```		
 ### Routes
 ```php
-	 Route::get('login', array( 'uses'=>'AuthController@showLoginDialoge') );
-    Route::post('login', array( 'uses'=>'AuthController@postLogin') );
+Route::get('login', array( 'uses'=>'AuthController@showLoginDialoge') );
+Route::post('login', array( 'uses'=>'AuthController@postLogin') );
 ```
 
 ### frontend
