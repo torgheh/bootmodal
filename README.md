@@ -1,9 +1,9 @@
 # Bootmodal
 
-Bootmodal makes it easier for Laravel back-end and front-end develepers to use Bootstrap modals. 
-In administration interfaces modal dialogs are widly used but implementing them is always 
-time consuming and involes lots of repeatation especially if the requets are made through AJAX.   
-Bootmodal Laravel package, provides back-end and front-end packages to accelerate this proccess.
+Bootmodal makes it easier for Laravel (currently only for Laravel 4.2) back-end and front-end developers to use Bootstrap modals. 
+In administration interfaces modal dialogs are widely used but implementing them is always 
+time consuming and involves lots of repetition especially if the requests are made through AJAX.   
+Bootmodal Laravel package provides back-end and front-end classes and plug-ins to accelerate this process.
 
 ## Installation
 
@@ -14,25 +14,25 @@ Bootmodal Laravel package, provides back-end and front-end packages to accelerat
 }
 ```
 Then run the `composer update`.
-### Laravel config app.php
+### Laravel configuration
 
-Add the bootmodal service provider to the `prviders` array:
+Add the Bootmodal service provider to the `providers` array in `app/cofig/app.php`:
 ```php
 	'Torgheh\Bootmodal\BootmodalServiceProvider'
 ```
 
-Next under the `aliases` array, you may add the Modal facade.
+Next under the `aliases` array in  `app/cofig/app.php`, you may add the Modal facade.
 ```php
 	'Modal'  => 'Torgheh\Bootmodal\Facades\Modal',
 
 ```
-You also so have to add the Javascript plugin to the front-end layout.
+The Javascript plugin must be added to the front-end layout.
 ```html
 <script src="path/to/public/js/bootmodal.min.js" ></scrpit>
 ```
 ## Backend
 ### Modal
-In your controller the same way you make views in Laravel you can make modal views and return a proper Ajax response. 
+In your controller the same way you make views in Laravel you can make modal views and return an Ajax response. 
 The view should extend the default `Bootmodal::layout`.
 
 ```php
@@ -47,18 +47,18 @@ return \Modal::make('dialogs.login')->withInput()->withErrors($validation);
 
 ### Redirect
 
-Some cases you want to go from an Ajax response to a normal redirect, for example after a succesfull sign in. 
+In some cases you might want to go from an Ajax response to a normal redirect, for instance after a successful sign in. 
 ```php
 return \Modal::redirect($url);
 ```
-You can also add the Laravel session data to the redirect the same way Laravel works.
+You can also add the Laravel session data to the redirect response the same way Laravel works.
 ```php
 retun \Modal::redirect($url)->withError($validator)->with('message', 'error');
 ```
 
 ### Options
-Some of the bootstrap modal options are interchanglable through the Modal class:
-- size of the dialoge(normal, large and small)
+Some of the Bootstrap modal options are adjustable through the Modal class:
+- size of the dialog (normal, large and small)
 - title
 - close button
 - animation
@@ -69,7 +69,7 @@ return \Modal::make('dialogs.login')->with('data', $data)->setOption('size', 'sm
 
 ### View
 
-The view extends on the `Bootmodal::layout`. there are two section in a bootstrap modal that you can extend:
+The view extends on the `Bootmodal::layout`. There are two sections in a Bootstrap modal that can be extended:
 modal-body and modal-footer.
 
 ## Frontend
@@ -80,23 +80,26 @@ modal-body and modal-footer.
 
 ### Data attributes
 
-You can bind two type of event to your Html elements that will trigger the bootmodal, click and submit.
+You can bind two types of events to your HTML elements that will trigger the Bootmodal, click and submit.
 
+#### Click:
 ```html
 <a href="#" data-action="{{url('login')}}" data-toggle="bootmodal">Login</a>
 ```
-This will create and then show a modal dialogue pointed through `data-action`.
-or
+This will create and show a modal dialog directed through `data-action` attributes.
+
+#### Sumbit:
+
 ```html
 <form action="{{url('login')}} method="post" data-toggle="bootmodal-form">
 ```
-This will send a Ajax post request to the controller action indicated by action attribute.
+This will send an Ajax post request to the `action` attribute.
 
-Two data attributes are neccessary, `data-toggle="bootmodal"` and `data-action` for buttons.
+Two data attributes are necessary, `data-toggle="bootmodal"` and `data-action` for buttons.
 
 ### JavaScript
 
-You can also enable bootmodal thorugh javascript for forms and buttons.
+You can also enable bootmodal through Javascript for forms and buttons.
 ```js
 $('#login-button').bootmodal();
 $('#login-form').bootmodal();
@@ -104,11 +107,11 @@ $('#login-form').bootmodal();
 
 ### Options
 
-There are only two options available, the modal container which is the Html `body` by default and Ajax cache option which is `false`.
+There are only two options available, the modal container which is the HTML `body` and Ajax cache option which is `false`, both by default.
 
 ```js
 $('#edit-button').bootmodal({ container: $('#modal-container') });
-$('#tof-button').bootmodal({ cache: true });
+$('#tos-button').bootmodal({ cache: true });
 ```
 
 ## Example
@@ -120,18 +123,18 @@ views/dialogs/login.blade.php
 @section('modal-content')
 	<form id="login-form" action="{{url('login')}}" method="post" data-toggle="bootmodal-form">
 
-		<ul id="errros">
+		<ul id="errors">
 			@foreach($errors->all() as $error )
 				<li>{{$error}}</li>
 			@endforeach
 		</ul>
 
 		<label>
-		Email: <input tupe="text" name="email" value="{{\Input::old('email')}}">
+		Email: <input type="text" name="email" value="{{\Input::old('email')}}">
 		</label>
 
 		<label>
-		Password: <input tupe="password" name="password">
+		Password: <input type="password" name="password">
 		</label>
 
 		<input type="submit" value="login">
@@ -144,7 +147,7 @@ views/dialogs/login.blade.php
 controllers/AuthController.php
 ```php
 <?php
-class AuthController extends BaceController
+class AuthController extends BaseController
 {
 	public function showLoginDialoge()
 	{
@@ -159,13 +162,18 @@ class AuthController extends BaceController
 		if($validator->passes()){
 		
 			///authentication process
-			return \Modal::redirect('home')->with('message', 'Successfull login');
+			return \Modal::redirect('home')->with('message', 'Successful login');
 		}
-		return \Modal::make('dialogs.login')->withErros($validator)->withInput();
+		return \Modal::make('dialogs.login')->withErrors($validator)->withInput();
 	}
 	...
 }
 ```		
+### Routes
+```php
+	 Route::get('login', array( 'uses'=>'AuthController@showLoginDialoge') );
+    Route::post('login', array( 'uses'=>'AuthController@postLogin') );
+```
 
 ### frontend
 
