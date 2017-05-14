@@ -5,12 +5,16 @@ use Illuminate\Support\ServiceProvider;
 class BootmodalServiceProvider extends ServiceProvider {
 
 	/**
-	 * Indicates if loading of the provider is deferred.
+	 * Bootstrap the application events.
 	 *
-	 * @var bool
+	 * @return void
 	 */
-	protected $defer = false;
-
+	public function boot()
+	{
+		$this->package('torgheh/bootmodal');
+	}
+	
+	
 	/**
 	 * Register the service provider.
 	 *
@@ -18,17 +22,13 @@ class BootmodalServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app['torgheh.bootmodal'] = $this->app->share(function($app){
+			
+			
+			return new \Torgheh\Bootmodal\Modal;
+			
+		});
 	}
 
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return array();
-	}
-
+	
 }
