@@ -15,15 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================= */
- 
+
 
 (function($) {
 
-	
-			
 	$.fn.bootmodal = function()
 	{
 		return this.each(function() {
+
 			var event = $(this).prop("tagName") == 'FORM'? 'submit.bootmodal':'click.bootmodal';
 			$(this).off(event);
 			$(this).on(event, function(e){
@@ -198,8 +197,9 @@
 				
 	 
 			},
-			error: function() {
-				console.log('Bootmodal error!');
+			error: function(response, res, error) {
+				console.log('Bootmodal error!: "' + error +'"');
+
 			},
 		});
 	};
@@ -207,6 +207,3 @@
 	window.Bootmodal = Bootmodal;
 	
 }(jQuery));
-
-
-
