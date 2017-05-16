@@ -33,7 +33,7 @@ php artisan asset:publish torgheh/bootmodal
 ```
 The Javascript plugin must be added to the front-end layout.1
 ```html
-<script src="{{asset('torgheh/bootmodal/bootmodal.min.js')" ></scrpit>
+<script src="{{asset('torgheh/bootmodal/bootmodal.min.js')}}" ></script>
 ```
 ## Backend
 ### Modal
@@ -62,20 +62,20 @@ retun \Modal::redirect($url)->withError($validator)->with('message', 'error');
 ```
 
 ### Options
-Some of the Bootstrap modal options are adjustable through the Modal class:
-- size of the dialog (normal, large and small)
-- title
-- close button
-- animation
+Some of the Bootstrap modal options are adjustable through the Modal object:
+- size:	size of the dialog (normal, lg or sm)
+- title: modal title
+- animation: modal animation
+- dismiss: dismiss button
 
 ```php
-return \Modal::make('dialogs.login')->with('data', $data)->setOption('size', 'small')->setOption('title', 'Login');
+return \Modal::make('dialogs.login')->with('data', $data)->setOption('size', 'sm')->setOption('title', 'Login');
 ```
 
 ### View
 
-The view extends on the `Bootmodal::layout`. There are two sections in a Bootstrap modal that can be extended:
-modal-body and modal-footer.
+The view extends on the `bootmodal::layout`. There are three sections in a Bootstrap modal that can be extended:
+`modal-body` and `modal-footer` or using `modal-content` you can replace the entire modal content.
 
 ## Frontend
 
@@ -96,7 +96,7 @@ This will create and show a modal dialog directed through `data-action` attribut
 #### Sumbit:
 
 ```html
-<form action="{{url('login')}} method="post" data-toggle="bootmodal-form">
+<form action="{{url('login')}} method="post" data-toggle="bootmodal">
 ```
 This will send an Ajax post request to the `action` attribute.
 
@@ -124,25 +124,32 @@ $('#tos-button').bootmodal({ cache: true });
 ### View
 views/dialogs/login.blade.php
 ```php
-@extends('Bootmodal::layout')
+@extends('bootmodal::layout')
 @section('modal-content')
-	<form id="login-form" action="{{url('login')}}" method="post" data-toggle="bootmodal-form">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" >Login</h4>
+	</div>
 
-		<ul id="errors">
-			@foreach($errors->all() as $error )
-				<li>{{$error}}</li>
-			@endforeach
-		</ul>
+	<form id="login-form" action="{{url('login')}}" method="post" data-toggle="bootmodal">
+		<div class="modal-body">
+			<ul id="errors">
+				@foreach($errors->all() as $error )
+					<li>{{$error}}</li>
+				@endforeach
+			</ul>
 
-		<label>
-		Email: <input type="text" name="email" value="{{\Input::old('email')}}">
-		</label>
+			<label class="control-label">
+			Email: <input type="text" class="form-control" name="email" value="{{\Input::old('email')}}">
+			</label>
 
-		<label>
-		Password: <input type="password" name="password">
-		</label>
-
-		<input type="submit" value="login">
+			<label class="control-label">
+			Password: <input type="password" class="form-control" name="password">
+			</label>
+		</div>
+		<div class="modal-footer text-right" >
+			<input type="submit" class="btn btn-default" value="login">
+		</div>
 
 	</form>
 @stop
@@ -150,6 +157,7 @@ views/dialogs/login.blade.php
 
 ### Controller
 controllers/AuthController.php
+
 ```php
 <?php
 class AuthController extends BaseController
@@ -157,7 +165,7 @@ class AuthController extends BaseController
 	public function showLoginDialoge()
 	{
 		$foo = '';
-		return \Modal::make('dialogs.login', compact('foo'))->setOption('title', 'Login form');
+		return \Modal::make('dialogs.login', compact('foo'));
 	}
 	public function postLogin()
 	{
