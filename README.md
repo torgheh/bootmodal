@@ -26,9 +26,14 @@ Next under the `aliases` array in  `app/cofig/app.php`, you may add the Modal fa
 	'Modal'  => 'Torgheh\Bootmodal\Facades\Modal',
 
 ```
-The Javascript plugin must be added to the front-end layout.
+Finally to move the package Javascript asset to the public folder run the follwoing command.
+
+```sh
+php artisan asset:publish torgheh/bootmodal
+```
+The Javascript plugin must be added to the front-end layout.1
 ```html
-<script src="path/to/public/js/bootmodal.min.js" ></scrpit>
+<script src="{{asset('torgheh/bootmodal/bootmodal.min.js')" ></scrpit>
 ```
 ## Backend
 ### Modal
@@ -75,7 +80,7 @@ modal-body and modal-footer.
 ## Frontend
 
 ```html
-<script src="{{asset('js/bootmodal.min.js')}}" ></script>
+<script src="{{asset('torgheh/bootmodal/bootmodal.min.js')}}" ></script>
 ```
 
 ### Data attributes
