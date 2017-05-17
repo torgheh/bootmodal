@@ -33,7 +33,7 @@ php artisan asset:publish torgheh/bootmodal
 ```
 The Javascript plugin must be added to the front-end layout.1
 ```html
-<script src="{{asset('torgheh/bootmodal/bootmodal.min.js')}}" ></script>
+<script src="{{asset('packages/torgheh/bootmodal/bootmodal.js')}}" ></script>
 ```
 ## Backend
 ### Modal
@@ -80,7 +80,7 @@ The view extends on the `bootmodal::layout`. There are three sections in a Boots
 ## Frontend
 
 ```html
-<script src="{{asset('torgheh/bootmodal/bootmodal.min.js')}}" ></script>
+<script src="{{asset('packages/torgheh/bootmodal/bootmodal.js')}}" ></script>
 ```
 
 ### Data attributes

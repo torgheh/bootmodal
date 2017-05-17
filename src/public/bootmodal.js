@@ -102,6 +102,9 @@
 			
 		if( this.isForm )
 				return this.target.attr('method');
+				
+		if( this.target.attr('data-method') )
+			return this.target.attr('data-method');
 		
 		return 'GET';
 			
