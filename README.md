@@ -10,7 +10,7 @@ Bootmodal Laravel package provides back-end and front-end classes and plug-ins t
 ### Composer
 ```sh
 "require": {
-    "torgheh/bootmodal": "1.0.0"
+    "torgheh/bootmodal": "v0.1.0"
 }
 ```
 Then run the `composer update`.

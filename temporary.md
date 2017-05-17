@@ -7,7 +7,7 @@ If you want to install this package please use the following instruction since I
 ### Composer
 ```sh
 "require": {
-    "torgheh/bootmodal": "dev-master"
+    "torgheh/bootmodal": "v0.1.0"
 }
 ```
 Add the follwing section to the `composer.json` the same level as `require`
