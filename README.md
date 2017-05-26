@@ -1,4 +1,4 @@
-# Bootmodal
+# Laravel Bootstrap Modal
 
 Bootmodal makes it easier for Laravel (currently only for Laravel 4.2) back-end and front-end developers to use Bootstrap modals. 
 In administration interfaces modal dialogs are widely used but implementing them is always 
