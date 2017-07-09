@@ -188,7 +188,7 @@ Route::get('login', array( 'uses'=>'AuthController@showLoginDialoge') );
 Route::post('login', array( 'uses'=>'AuthController@postLogin') );
 ```
 
-### frontend
+### front-end
 
 ```html
 <a href="#" data-action="{{url('login')}}" data-toggle="bootmodal">Login</a>
